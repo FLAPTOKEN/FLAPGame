@@ -2,8 +2,14 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
 // Set canvas dimensions
-canvas.width = 320;
-canvas.height = 480;
+function resizeCanvas() {
+    canvas.width = window.innerWidth < 500 ? 300 : 320;
+    canvas.height = window.innerWidth < 500 ? 450 : 480;
+}
+
+window.addEventListener("resize", resizeCanvas);
+resizeCanvas();
+
 
 // Game variables
 let bird = { x: 50, y: 150, size: 20, gravity: 0.5, lift: -10, velocity: 0 };
@@ -25,7 +31,21 @@ document.addEventListener("keydown", (e) => {
     if (e.code === "Space" && !gameOver) {
         bird.velocity = bird.lift;
     }
+    if (e.code === "KeyR" && gameOver) {
+        resetGame();
+    }
 });
+
+function resetGame() {
+    bird = { x: 50, y: 150, size: 20, gravity: 0.5, lift: -10, velocity: 0 };
+    pipes = [];
+    frameCount = 0;
+    score = 0;
+    gameOver = false;
+    createPipe();
+    gameLoop();
+}
+
 
 // Create pipes
 function createPipe() {
@@ -103,22 +123,25 @@ function draw() {
         ctx.fillRect(pipe.x, canvas.height - pipe.bottomHeight, pipeWidth, pipe.bottomHeight); // Bottom pipe
     });
 
- // Draw score
+// Draw score
 ctx.fillStyle = "#fff";
 ctx.font = "20px Arial";
-ctx.textAlign = "left"; // Align score to the top-left
-ctx.fillText(`Score: ${score}`, 10, 30);
+ctx.textAlign = "left"; 
+ctx.fillText(`Score: ${score}`, 15, 30); // Added padding
+
 
 
   // Draw game over message
 if (gameOver) {
     ctx.fillStyle = "#e7d610";
     ctx.font = "30px Arial";
-    ctx.textAlign = "center"; // Center-align text
+    ctx.textAlign = "center";
     ctx.fillText("Game Over!", canvas.width / 2, canvas.height / 2);
+    ctx.font = "16px Arial";
+    ctx.fillText("Press R to Restart", canvas.width / 2, canvas.height / 2 + 40);
 }
 
-}
+
 
 // Main game loop
 function gameLoop() {
