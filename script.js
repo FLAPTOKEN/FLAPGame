@@ -101,12 +101,14 @@ function draw() {
     ctx.font = "20px Arial";
     ctx.fillText(`Score: ${score}`, 10, 20);
 
-    // Draw game over message
-    if (gameOver) {
-        ctx.fillStyle = "#e7d610";
-        ctx.font = "30px Arial";
-        ctx.fillText("Game Over!", canvas.width / 2 - 70, canvas.height / 2);
-    }
+  // Draw game over message
+if (gameOver) {
+    ctx.fillStyle = "#e7d610";
+    ctx.font = "30px Arial";
+    ctx.textAlign = "center"; // Center-align text
+    ctx.fillText("Game Over!", canvas.width / 2, canvas.height / 2);
+}
+
 }
 
 // Main game loop
