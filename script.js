@@ -53,6 +53,13 @@ function update() {
     if (frameCount % 150 === 0) {
         createPipe();
     }
+    
+    // Add more spacing between pipes
+    function createPipe() {
+    const topHeight = Math.random() * (canvas.height - gap - 100) + 50; // Adjusted for spacing
+    const bottomHeight = canvas.height - topHeight - gap;
+    pipes.push({ x: canvas.width, topHeight, bottomHeight });
+   }
 
     // Check collisions
     pipes.forEach((pipe) => {
@@ -96,10 +103,12 @@ function draw() {
         ctx.fillRect(pipe.x, canvas.height - pipe.bottomHeight, pipeWidth, pipe.bottomHeight); // Bottom pipe
     });
 
-    // Draw score
-    ctx.fillStyle = "#fff";
-    ctx.font = "20px Arial";
-    ctx.fillText(`Score: ${score}`, 10, 20);
+ // Draw score
+ctx.fillStyle = "#fff";
+ctx.font = "20px Arial";
+ctx.textAlign = "left"; // Align score to the top-left
+ctx.fillText(`Score: ${score}`, 10, 30);
+
 
   // Draw game over message
 if (gameOver) {
