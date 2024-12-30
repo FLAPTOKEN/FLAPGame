@@ -1,8 +1,46 @@
 // Telegram WebApp API Initialization
 if (window.Telegram.WebApp) {
     Telegram.WebApp.ready();
-    Telegram.WebApp.expand(); // Ensure full-screen mode
+    Telegram.WebApp.expand();
+    const user = Telegram.WebApp.initDataUnsafe?.user || {};
+    document.getElementById("user-avatar").src = user.photo_url || "default-avatar.png";
+    document.getElementById("user-name").textContent = user.username || "Guest";
 }
+
+// Wallet Connection Logic
+document.getElementById("connect-wallet").addEventListener("click", async () => {
+    if (window.ethereum) {
+        try {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            alert(`Connected Wallet: ${accounts[0]}`);
+        } catch (error) {
+            console.error("Wallet connection failed", error);
+        }
+    } else {
+        alert("MetaMask is not installed.");
+    }
+});
+
+// Settings Modal Logic
+document.getElementById("settings").addEventListener("click", () => {
+    document.getElementById("settings-modal").classList.remove("hidden");
+});
+
+document.getElementById("close-settings").addEventListener("click", () => {
+    document.getElementById("settings-modal").classList.add("hidden");
+});
+
+// Game Start Logic
+document.getElementById("play-game").addEventListener("click", () => {
+    document.getElementById("menu").style.display = "none";
+    document.getElementById("gameCanvas").classList.remove("hidden");
+    startGame();
+});
+
+// Scoreboard Placeholder
+document.getElementById("scoreboard").addEventListener("click", () => {
+    alert("Scoreboard feature is under development!");
+});
 
 // DOM Elements
 const canvas = document.getElementById("gameCanvas");
