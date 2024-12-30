@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src * 'self' 'unsafe-inline'; connect-src *;">
-    <title>FlapToken Game</title>
+    <title>FlapToken Mini App</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,16 +15,14 @@
             padding: 0;
         }
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
             background-color: #000;
+            padding: 15px;
         }
         .header img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
+            height: 50px;
+        }
+        .content {
+            padding: 20px;
         }
         .menu {
             margin-top: 50px;
@@ -43,25 +41,29 @@
         .menu button:hover {
             background-color: #d6c00f;
         }
-        .hidden {
-            display: none;
+        .qr-section {
+            margin-top: 30px;
+        }
+        .qr-section img {
+            height: 200px;
         }
     </style>
 </head>
 <body>
     <div class="header">
-        <img id="user-avatar" src="default-avatar.png" alt="Avatar">
-        <button id="connect-wallet">Connect Wallet</button>
+        <img src="flap_logo.png" alt="FlapToken Logo">
     </div>
-    <div id="menu" class="menu">
-        <button id="play-game">Play Game</button>
-        <button id="scoreboard">Scoreboard</button>
-        <button id="settings">Settings</button>
-    </div>
-    <canvas id="gameCanvas" class="hidden"></canvas>
-    <div id="settings-modal" class="hidden">
-        <h2>Settings</h2>
-        <button id="close-settings">Close</button>
+    <div class="content">
+        <h1>Welcome to FlapToken</h1>
+        <div id="menu" class="menu">
+            <button id="play-game">Play Game</button>
+            <button id="scoreboard">Scoreboard</button>
+            <button id="settings">Settings</button>
+        </div>
+        <div id="qr-code" class="qr-section hidden">
+            <h2>Scan to Play</h2>
+            <img src="qr_code.png" alt="QR Code">
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
