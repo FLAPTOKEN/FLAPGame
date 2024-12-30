@@ -6,78 +6,32 @@
     <title>FlapToken Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
-    <body>
-    <!-- Play on Mobile Screen -->
-<div id="playOnMobileScreen" style="display: none;">
-    <!-- Add the QR code, message, and logo for PC users here -->
-    <div class="qr-wrapper">
+<body>
+    <!-- Screen for PC Users -->
+    <div id="playOnMobileScreen" style="display: none; text-align: center;">
+        <img src="bird.png" alt="Logo" style="width: 80px; margin-top: 20px;">
         <h2>Play on your mobile!</h2>
-        <img src="path-to-your-qr-code.png" alt="QR Code" class="qr-code">
-        <p>@FLAPGameBot</p>
+        <img src="qr-code.png" alt="QR Code" style="width: 250px; margin: 20px auto;">
+        <p style="font-size: 18px;">@FLAPGameBot</p>
     </div>
-</div>
 
-<div id="appContent" style="display: none;">
-    <!-- Add the content for mobile users here -->
-    <div class="menu">
-        <button id="playGameButton">Play Game</button>
-        <button id="scoreboardButton">Scoreboard</button>
-        <button id="settingsButton">Settings</button>
-        <button id="connectWalletButton">Connect Wallet</button>
-    </div>
-</div>
-
-
-    <!-- Main App Content -->
+    <!-- App Content for Mobile Users -->
     <div id="appContent" style="display: none;">
-        <img src="bird.png" alt="FlapToken Logo" style="width: 100px; margin: 10px;">
-        <h1>Welcome to FlapToken</h1>
-        <button onclick="showGameScreen()">Play Game</button>
-        <button onclick="showScoreboard()">Scoreboard</button>
-        <button onclick="showSettings()">Settings</button>
-        <button onclick="connectWallet()">Connect Wallet</button>
+        <header>
+            <img src="bird.png" alt="FlapToken Logo" class="logo">
+        </header>
+        <div class="menu">
+            <button id="playGameButton">Play Game</button>
+            <button id="scoreboardButton">Scoreboard</button>
+            <button id="settingsButton">Settings</button>
+            <button id="connectWalletButton">Connect Wallet</button>
+        </div>
+        <footer>
+            <p>© FlapToken</p>
+        </footer>
     </div>
 
     <script src="script.js"></script>
-</body>
-
-<body>
-    <div id="mainMenu">
-        <img src="assets/images/background.png" class="background">
-        <img src="assets/images/bird.png" alt="Logo" class="logo">
-        <button id="startButton">Play Game</button>
-        <button id="scoreboardButton">Scoreboard</button>
-        <button id="settingsButton">Settings</button>
-        <button id="walletButton">Connect Wallet</button>
-    </div>
-    <div id="gameScreen" style="display: none;">
-        <canvas id="gameCanvas"></canvas>
-    </div>
-    <div id="scoreboard" style="display: none;">
-        <h1>Scoreboard</h1>
-        <ul id="scoreList"></ul>
-        <button id="backToMenu">Back</button>
-    </div>
-    <div id="settings" style="display: none;">
-        <h1>Settings</h1>
-        <label>
-            <input type="checkbox" id="toggleMusic"> Background Music
-        </label>
-        <label>
-            <input type="checkbox" id="toggleSound"> Sound Effects
-        </label>
-        <label>
-            Game Difficulty:
-            <select id="difficulty">
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-        </label>
-        <button id="saveSettings">Save</button>
-        <button id="backToMenuFromSettings">Back</button>
-    </div>
-    <script src="main.js"></script>
     <script src="game.js"></script>
     <script src="wallet.js"></script>
     <script src="scoreboard.js"></script>
