@@ -1,34 +1,60 @@
-button {
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    transition: transform 0.2s ease;
-}
-button:hover {
-    transform: scale(1.1);
-}
-
 body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background: linear-gradient(90deg, #121212, #000);
+    background-color: #121212;
     color: #fff;
-    font-family: 'Arial', sans-serif;
 }
 
-#game-container {
+#app {
+    text-align: center;
+    padding: 20px;
+}
+
+#user-panel {
     display: flex;
-    justify-content: center;
     align-items: center;
-    width: 100%;
-    height: 100%;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-canvas {
-    border: 2px solid #e7d610;
-    background: linear-gradient(#70c5ce, #4da3a5); /* Updated background */
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5); /* Add shadow for canvas */
-    border-radius: 8px; /* Rounded edges */
+#user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#menu button {
+    display: block;
+    margin: 10px auto;
+    padding: 15px 25px;
+    border: none;
+    background-color: #e7d610;
+    color: #000;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+#menu button:hover {
+    background-color: #d6c00f;
+}
+
+.modal {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal.hidden {
+    display: none;
 }
