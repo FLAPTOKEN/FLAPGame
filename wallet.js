@@ -1,13 +1,12 @@
-document.getElementById("walletButton").addEventListener("click", async () => {
-    if (window.ethereum) {
+async function connectWallet() {
+    if (typeof window.ethereum !== "undefined") {
         try {
-            const accounts = await ethereum.request({ method: "eth_requestAccounts" });
-            const walletAddress = accounts[0];
-            alert(`Connected Wallet: ${walletAddress}`);
+            const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
+            alert(`Connected: ${accounts[0]}`);
         } catch (error) {
-            console.error(error);
+            alert("Connection failed.");
         }
     } else {
         alert("MetaMask not detected. Please install it.");
     }
-});
+}
