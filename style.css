@@ -1,42 +1,35 @@
 body {
-    font-family: Arial, sans-serif;
-    background: url('background.png') no-repeat center center fixed;
-    background-size: cover;
+    font-family: "Press Start 2P", sans-serif; /* Add a pixel art font */
+    text-align: center;
+    background-color: #121212;
     color: #fff;
     margin: 0;
-    text-align: center;
+    padding: 0;
 }
 
-header {
-    padding: 20px 0;
-}
-
-.logo {
-    width: 100px;
-    margin: 0 auto;
-}
-
-.menu button {
+button {
     background-color: #e7d610;
     color: #000;
-    padding: 15px 25px;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
-    margin: 10px 0;
-    width: 80%;
-    max-width: 300px;
+    margin: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s;
 }
 
-.menu button:hover {
+button:hover {
     background-color: #d6c00f;
+    transform: scale(1.1);
 }
 
-footer {
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    font-size: 12px;
-    color: #fff;
+.hidden {
+    display: none;
+}
+
+#logo {
+    width: 120px;
+    margin-bottom: 20px;
 }
