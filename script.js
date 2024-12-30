@@ -5,6 +5,27 @@ if (window.Telegram.WebApp) {
     const user = Telegram.WebApp.initDataUnsafe?.user || {};
     document.getElementById("user-avatar").src = user.photo_url || "default-avatar.png";
 }
+// Detect if the user is on mobile or PC
+function isMobileDevice() {
+    return /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+// Show the appropriate screen based on the device
+window.onload = function () {
+    const playOnMobileScreen = document.getElementById("playOnMobileScreen");
+    const appContent = document.getElementById("appContent");
+
+    if (!isMobileDevice()) {
+        // If on PC, show the "Play on Mobile" screen
+        playOnMobileScreen.style.display = "block";
+        appContent.style.display = "none";
+    } else {
+        // If on mobile, show the app content
+        playOnMobileScreen.style.display = "none";
+        appContent.style.display = "block";
+    }
+};
+
 
 // Wallet Connection
 document.getElementById("connect-wallet").addEventListener("click", async () => {
