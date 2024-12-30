@@ -6,6 +6,28 @@
     <title>FlapToken Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
+    <body>
+    <!-- Play on Mobile Screen -->
+    <div id="playOnMobileScreen" style="display: none; text-align: center;">
+        <img src="bird.png" alt="Logo" style="width: 100px; margin-top: 20px;">
+        <h1>Play on your Mobile</h1>
+        <img src="qrcode.png" alt="QR Code" style="width: 250px; height: 250px; margin: 20px;">
+        <p>@FLAPGameBot</p>
+    </div>
+
+    <!-- Main App Content -->
+    <div id="appContent" style="display: none;">
+        <img src="bird.png" alt="FlapToken Logo" style="width: 100px; margin: 10px;">
+        <h1>Welcome to FlapToken</h1>
+        <button onclick="showGameScreen()">Play Game</button>
+        <button onclick="showScoreboard()">Scoreboard</button>
+        <button onclick="showSettings()">Settings</button>
+        <button onclick="connectWallet()">Connect Wallet</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
 <body>
     <div id="mainMenu">
         <img src="assets/images/background.png" class="background">
