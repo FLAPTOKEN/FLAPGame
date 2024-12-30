@@ -10,20 +10,21 @@ body {
 button {
     background-color: #e7d610;
     color: #000;
-    border: 2px solid #fff;
-    border-radius: 10px;
     padding: 10px 20px;
-    font-size: 16px;
+    border: 2px solid #000;
+    border-radius: 0;
+    font-size: 18px;
+    font-family: 'Press Start 2P', cursive; /* Use a pixel-art font */
     cursor: pointer;
     margin: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    transition: all 0.3s;
+    box-shadow: 4px 4px 0 #000;
 }
 
 button:hover {
     background-color: #d6c00f;
-    transform: scale(1.1);
+    box-shadow: 2px 2px 0 #000;
 }
+
 
 .hidden {
     display: none;
