@@ -10,6 +10,20 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
+if (window.Telegram.WebApp) {
+    const user = Telegram.WebApp.initDataUnsafe?.user || {};
+    console.log("User Info:", user);
+    // Example: Display username
+    if (user.username) {
+        document.body.innerHTML += `<p>Welcome, @${user.username}!</p>`;
+    }
+}
+
+document.getElementById("startButton").addEventListener("click", () => {
+    // Code to start the game
+    console.log("Game started!");
+    // Redirect or start logic
+});
 
 // Game variables
 let bird = { x: 50, y: 150, size: 20, gravity: 0.5, lift: -10, velocity: 0 };
