@@ -1,13 +1,16 @@
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 
-// Responsive canvas dimensions
+// Set canvas dimensions
 function resizeCanvas() {
-    canvas.width = Math.min(window.innerWidth - 20, 400); // Max width: 400px
-    canvas.height = Math.min(window.innerHeight - 150, 600); // Max height: 600px
+    canvas.width = window.innerWidth < 500 ? 300 : 320;
+    canvas.height = window.innerWidth < 500 ? 450 : 480;
 }
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
+
+// Detect device type
+const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
 // Game variables
 let bird = { x: 50, y: 150, size: 20, gravity: 0.5, lift: -10, velocity: 0 };
@@ -15,46 +18,35 @@ let pipes = [];
 let frameCount = 0;
 let score = 0;
 let gameOver = false;
-let gameStarted = false;
 
 // Pipe settings
 const pipeWidth = 50;
-const gap = 150;
+const gap = 100;
 
-// Bird image
+// Load images
 const birdImage = new Image();
-birdImage.src = "bird.png";
+birdImage.src = "bird.png"; // Make sure you have this file
 
-// Start game logic
-document.getElementById("startButton").addEventListener("click", () => {
-    gameStarted = true;
-    document.getElementById("startButton").style.display = "none";
-    createPipe();
-    gameLoop();
-});
+// Bird controls
+if (isMobile) {
+    // Touch controls for mobile
+    canvas.addEventListener("touchstart", () => {
+        if (!gameOver) bird.velocity = bird.lift;
+        else resetGame(); // Restart game on touch if game is over
+    });
+} else {
+    // Key controls for PC
+    document.addEventListener("keydown", (e) => {
+        if (e.code === "Space" && !gameOver) bird.velocity = bird.lift;
+        if (e.code === "KeyR" && gameOver) resetGame();
+    });
+}
 
-// Touch controls for mobile
-canvas.addEventListener("touchstart", () => {
-    if (!gameStarted) return;
-    if (!gameOver) bird.velocity = bird.lift; // Flap
-});
-
-// Keyboard controls for desktop
-document.addEventListener("keydown", (e) => {
-    if (e.code === "Space" && !gameOver && gameStarted) {
-        bird.velocity = bird.lift; // Flap
-    }
-    if (e.code === "KeyR" && gameOver) {
-        resetGame();
-    }
-});
-
-// Reset game logic
 function resetGame() {
     bird = { x: 50, y: 150, size: 20, gravity: 0.5, lift: -10, velocity: 0 };
     pipes = [];
-    score = 0;
     frameCount = 0;
+    score = 0;
     gameOver = false;
     createPipe();
     gameLoop();
@@ -62,19 +54,20 @@ function resetGame() {
 
 // Create pipes
 function createPipe() {
-    const topHeight = Math.random() * (canvas.height - gap - 50) + 50;
+    const topHeight = Math.random() * (canvas.height - gap - 100) + 50;
     const bottomHeight = canvas.height - topHeight - gap;
     pipes.push({ x: canvas.width, topHeight, bottomHeight });
 }
 
 // Update game objects
 function update() {
-    if (gameOver || !gameStarted) return;
+    if (gameOver) return;
 
     bird.velocity += bird.gravity;
     bird.y += bird.velocity;
 
     pipes.forEach((pipe) => (pipe.x -= 2));
+
     pipes = pipes.filter((pipe) => pipe.x + pipeWidth > 0);
 
     if (frameCount % 150 === 0) createPipe();
@@ -84,10 +77,14 @@ function update() {
             bird.x < pipe.x + pipeWidth &&
             bird.x + bird.size > pipe.x &&
             (bird.y < pipe.topHeight || bird.y + bird.size > canvas.height - pipe.bottomHeight)
-        ) gameOver = true;
+        ) {
+            gameOver = true;
+        }
     });
 
-    if (bird.y + bird.size > canvas.height || bird.y < 0) gameOver = true;
+    if (bird.y + bird.size > canvas.height || bird.y < 0) {
+        gameOver = true;
+    }
 
     pipes.forEach((pipe) => {
         if (!pipe.scored && bird.x > pipe.x + pipeWidth) {
@@ -113,7 +110,7 @@ function draw() {
 
     ctx.fillStyle = "#fff";
     ctx.font = "20px Arial";
-    ctx.fillText(`Score: ${score}`, 10, 30);
+    ctx.fillText(`Score: ${score}`, 15, 30);
 
     if (gameOver) {
         ctx.fillStyle = "#e7d610";
@@ -121,7 +118,13 @@ function draw() {
         ctx.textAlign = "center";
         ctx.fillText("Game Over!", canvas.width / 2, canvas.height / 2);
         ctx.font = "16px Arial";
-        ctx.fillText("Press R to Restart", canvas.width / 2, canvas.height / 2 + 40);
+
+        // Show restart instructions based on device type
+        if (isMobile) {
+            ctx.fillText("Tap to Restart", canvas.width / 2, canvas.height / 2 + 40);
+        } else {
+            ctx.fillText("Press R to Restart", canvas.width / 2, canvas.height / 2 + 40);
+        }
     }
 }
 
@@ -131,3 +134,10 @@ function gameLoop() {
     draw();
     if (!gameOver) requestAnimationFrame(gameLoop);
 }
+
+// Start the game
+document.getElementById("startButton").addEventListener("click", () => {
+    document.getElementById("startButton").style.display = "none";
+    createPipe();
+    gameLoop();
+});
