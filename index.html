@@ -13,9 +13,40 @@
             color: #fff;
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Prevent scrolling */
         }
-        button {
+        #app-header {
+            background-color: #000;
+            color: #e7d610;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        #app-header h1 {
+            font-size: 20px;
+            margin: 0;
+        }
+        #app-header button {
+            background: none;
+            border: none;
+            color: #e7d610;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        #app-footer {
+            background-color: #000;
+            color: #e7d610;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        #startButton {
             background-color: #e7d610;
             color: #000;
             padding: 15px 25px;
@@ -25,22 +56,28 @@
             cursor: pointer;
             margin-top: 20px;
         }
-        button:hover {
+        #startButton:hover {
             background-color: #d6c00f;
         }
         #gameCanvas {
-            display: block;
-            margin: 0 auto;
             border: 2px solid #e7d610;
+            margin: 20px auto;
+            display: block;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome to FlapToken Game</h1>
-    <p>Click below to start the game.</p>
+    <div id="app-header">
+        <button onclick="Telegram.WebApp.close()">Back</button>
+        <h1>FlapToken Game</h1>
+    </div>
+    <h2 id="welcomeMessage">Welcome to FlapToken Game</h2>
+    <p id="instructions">Click below to start the game.</p>
     <canvas id="gameCanvas"></canvas>
     <button id="startButton">Start Game</button>
-
+    <div id="app-footer">
+        <p>© 2024 FlapToken Game</p>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
