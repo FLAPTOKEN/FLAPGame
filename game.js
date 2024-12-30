@@ -6,6 +6,7 @@ let gameOver = false;
 
 // Start Game
 function startGame() {
+    alert("Game starting...");
     // Initialize game variables
     bird = { x: 50, y: 150, size: 24, gravity: 0.4, lift: -8, velocity: 0 };
     pipes = [];
