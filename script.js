@@ -8,13 +8,16 @@ function resizeCanvas() {
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
 
-if (window.Telegram.WebApp) {
+if (window.Telegram && window.Telegram.WebApp) {
     Telegram.WebApp.ready(); // Ensure the Telegram Web App is ready
     const user = Telegram.WebApp.initDataUnsafe?.user || {};
     if (user.username) {
         console.log(`Welcome, @${user.username}!`);
     }
+} else {
+    console.warn("Telegram WebApp is not available. Running in a browser environment.");
 }
+
 
 document.getElementById("startButton").addEventListener("click", () => {
     console.log("Start Game button clicked!");
