@@ -21,21 +21,26 @@ window.onload = function () {
 
 // Button Click Handlers
 document.getElementById("playGameButton").addEventListener("click", () => {
-    console.log("Play Game clicked!");
-    startGame(); // Calls the startGame() function in game.js
+    document.getElementById("appContent").classList.add("hidden");
+    document.getElementById("gameCanvas").classList.remove("hidden");
+    startGame(); // Start the game logic from game.js
 });
 
 document.getElementById("scoreboardButton").addEventListener("click", () => {
-    console.log("Scoreboard clicked!");
     showScoreboard();
 });
 
 document.getElementById("settingsButton").addEventListener("click", () => {
-    console.log("Settings clicked!");
-    openSettings();
+    alert("Settings will be implemented soon!");
 });
 
-document.getElementById("connectWalletButton").addEventListener("click", () => {
-    console.log("Connect Wallet clicked!");
-    connectWallet();
+document.getElementById("walletButton").addEventListener("click", () => {
+    document.getElementById("appContent").classList.add("hidden");
+    document.getElementById("walletScreen").classList.remove("hidden");
 });
+
+document.getElementById("backButtonWallet").addEventListener("click", () => {
+    document.getElementById("walletScreen").classList.add("hidden");
+    document.getElementById("appContent").classList.remove("hidden");
+});
+
