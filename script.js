@@ -21,8 +21,25 @@ window.onload = function () {
 
 // Button Click Handlers
 document.getElementById("playGameButton").addEventListener("click", () => {
-    document.getElementById("appContent").classList.add("hidden");
-    document.getElementById("gameCanvas").classList.remove("hidden");
+    document.getElementById("appContent").style.display = "none";
+    document.getElementById("gameScreen").style.display = "block";
+});
+
+document.getElementById("scoreboardButton").addEventListener("click", () => {
+    document.getElementById("appContent").style.display = "none";
+    document.getElementById("scoreboardScreen").style.display = "block";
+});
+
+document.getElementById("settingsButton").addEventListener("click", () => {
+    document.getElementById("appContent").style.display = "none";
+    document.getElementById("settingsScreen").style.display = "block";
+});
+
+document.getElementById("connectWalletButton").addEventListener("click", () => {
+    document.getElementById("appContent").style.display = "none";
+    document.getElementById("walletScreen").style.display = "block";
+});
+
     startGame(); // Start the game logic from game.js
 });
 
