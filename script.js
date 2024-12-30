@@ -41,7 +41,7 @@ document.getElementById("connectWalletButton").addEventListener("click", () => {
 });
 
     startGame(); // Start the game logic from game.js
-});
+
 
 document.getElementById("scoreboardButton").addEventListener("click", () => {
     showScoreboard();
