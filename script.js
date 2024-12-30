@@ -19,11 +19,26 @@ if (window.Telegram.WebApp) {
     }
 }
 
+// Add an event listener to the button
 document.getElementById("startButton").addEventListener("click", () => {
-    // Code to start the game
-    console.log("Game started!");
-    // Redirect or start logic
+    console.log("Start Game button clicked!");
+    startGame(); // Call the function that starts your game
 });
+function startGame() {
+    // Hide the Start Button and show the game screen
+    document.getElementById("startButton").style.display = "none";
+    
+    // Initialize the game (example logic for Flappy Bird)
+    const canvas = document.createElement("canvas");
+    canvas.width = 400;
+    canvas.height = 600;
+    document.body.appendChild(canvas);
+    
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#e7d610";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    console.log("Game started!");
+}
 
 // Game variables
 let bird = { x: 50, y: 150, size: 20, gravity: 0.5, lift: -10, velocity: 0 };
