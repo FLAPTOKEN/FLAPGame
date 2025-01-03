@@ -2,71 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>FlapToken Game</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-
 </head>
 <body>
-    <!-- Screen for PC Users -->
-    <div id="playOnMobileScreen" style="display: none; text-align: center;">
-        <img src="bird.png" alt="Logo" style="width: 80px; margin-top: 20px;">
-        <h2 style="color: #e7d610;">Play on your mobile!</h2>
-        <img src="qr-code.png" alt="QR Code" style="width: 250px; margin: 20px auto;">
-        <p style="font-size: 18px;">@FLAPGameBot</p>
-    </div>
-
-    <!-- App Content for Mobile Users -->
-    <div id="appContent" style="display: none;">
+    <div id="appContent">
         <header>
-            <img src="bird.png" alt="FlapToken Logo" class="logo">
+            <img src="bird.png" alt="FlapToken Logo">
         </header>
+        <canvas id="gameCanvas"></canvas>
         <div class="menu">
             <button id="playGameButton">Play Game</button>
             <button id="scoreboardButton">Scoreboard</button>
             <button id="settingsButton">Settings</button>
             <button id="connectWalletButton">Connect Wallet</button>
         </div>
-        <footer>
-            <p>© FlapToken</p>
-        </footer>
     </div>
 
-    <!-- Wallet Screen -->
-    <div id="walletScreen" style="display: none;">
-        <h2>Connect Your Wallet</h2>
-        <button id="metamaskButton">MetaMask</button>
-        <button id="trustWalletButton">Trust Wallet</button>
-        <button id="coinbaseWalletButton">Coinbase Wallet</button>
-        <button id="backToMenuButton">Back to Menu</button>
-    </div>
-
-    <!-- Scoreboard Screen -->
-    <div id="scoreboardScreen" style="display: none;">
-        <h2>Scoreboard</h2>
-        <div id="scoresList">
-            <!-- Dynamically populated scores -->
-        </div>
-        <button id="backFromScoreboardButton">Back to Menu</button>
-    </div>
-
-    <!-- Settings Screen -->
-    <div id="settingsScreen" style="display: none;">
-        <h2>Settings</h2>
-        <label>
-            <input type="checkbox" id="soundToggle"> Sound
-        </label>
-        <label>
-            <input type="checkbox" id="graphicsToggle"> High-Quality Graphics
-        </label>
-        <button id="saveSettingsButton">Save Settings</button>
-        <button id="backFromSettingsButton">Back to Menu</button>
-    </div>
-
-    <!-- Game Screen -->
-    <canvas id="gameCanvas" style="display: none;"></canvas>
-
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <script src="script.js"></script>
     <script src="game.js"></script>
     <script src="wallet.js"></script>
