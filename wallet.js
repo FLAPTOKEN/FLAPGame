@@ -1,43 +1,56 @@
-async function connectWallet(walletType) {
-    try {
-        if (walletType === "metamask") {
-            if (typeof window.ethereum !== "undefined") {
-                const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-                alert(`Connected to MetaMask: ${accounts[0]}`);
-            } else {
-                alert("MetaMask not detected. Please install it.");
-            }
-        } else if (walletType === "trustwallet") {
-            // Trust Wallet works similarly to MetaMask since it also uses Ethereum provider
-            if (typeof window.ethereum !== "undefined") {
-                const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-                alert(`Connected to Trust Wallet: ${accounts[0]}`);
-            } else {
-                alert("Trust Wallet not detected. Please install it.");
-            }
-        } else if (walletType === "coinbase") {
-            // Coinbase Wallet detection and connection
-            if (typeof window.ethereum !== "undefined") {
-                const accounts = await window.ethereum.request({ method: "eth_requestAccounts" });
-                alert(`Connected to Coinbase Wallet: ${accounts[0]}`);
-            } else {
-                alert("Coinbase Wallet not detected. Please install it.");
-            }
-        } else {
-            alert("Unsupported wallet type.");
-        }
-    } catch (error) {
-        alert(`Failed to connect: ${error.message}`);
+let rewardGiven = false;
+const BASE_REWARD = 10; // 10 Flap Tokens per point
+const MINIMUM_PLAYTIME = 60 * 1000; // 60 seconds (1 minute)
+let gameStartTime = Date.now();
+
+// Function to calculate rewards
+function calculateRewards(score) {
+    const playDuration = Date.now() - gameStartTime;
+    let rewardAmount = score * BASE_REWARD;
+
+    if (playDuration < MINIMUM_PLAYTIME) {
+        rewardAmount *= 0.5; // Reduce reward if played less than 1 minute
+        alert("Playtime was too short! Reduced reward by 50%.");
+    }
+
+    return Math.floor(rewardAmount);
+}
+
+// Check and reward user
+function checkScoreReward() {
+    if (score >= 10 && !rewardGiven) {
+        rewardGiven = true;
+        const reward = calculateRewards(score);
+        alert(`Congratulations! You've earned ${reward} Flap Tokens!`);
+        sendFlapTokenReward(reward);
     }
 }
 
-// Add event listeners for wallet buttons
-document.getElementById("metamaskButton").addEventListener("click", () => connectWallet("metamask"));
-document.getElementById("trustWalletButton").addEventListener("click", () => connectWallet("trustwallet"));
-document.getElementById("coinbaseWalletButton").addEventListener("click", () => connectWallet("coinbase"));
+// Token Transfer using Web3
+async function sendFlapTokenReward(amount) {
+    if (window.ethereum) {
+        try {
+            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+            const recipient = accounts[0]; // Player's wallet
+            const tokenAddress = "YOUR_FLAP_TOKEN_CONTRACT_ADDRESS";
 
-// Back to Main Menu Button
-document.getElementById("backToMenuButton").addEventListener("click", () => {
-    document.getElementById("walletScreen").style.display = "none";
-    document.getElementById("appContent").style.display = "block";
-});
+            const tx = {
+                to: tokenAddress,
+                from: recipient,
+                value: "0",
+                data: "0x" // Replace with the correct contract ABI interaction data
+            };
+
+            await window.ethereum.request({
+                method: 'eth_sendTransaction',
+                params: [tx]
+            });
+
+            alert(`${amount} Flap Tokens have been sent to your wallet!`);
+        } catch (error) {
+            alert("Error sending Flap Tokens: " + error.message);
+        }
+    } else {
+        alert("Please connect your wallet.");
+    }
+}
