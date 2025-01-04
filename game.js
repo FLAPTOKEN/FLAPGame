@@ -1,10 +1,11 @@
 const canvas = document.getElementById('gameCanvas');
 const ctx = canvas.getContext('2d');
 
-let bird;
+
 let pipes = [];
-let gameRunning = false;
 let score = 0;
+let birdY = 200;
+let gameActive = false;
 
 const GRAVITY = 0.6;
 const PIPE_WIDTH = 50;
@@ -21,22 +22,11 @@ bgImg.src = 'background.png';
 canvas.width = 400;
 canvas.height = 600;
 
+// Start the game
 function startGame() {
-    document.getElementById('menu').style.display = 'none';
-    canvas.style.display = 'block';
-    document.getElementById('gameOverScreen').style.display = 'none';
-
-    bird = {
-        x: 50,
-        y: canvas.height / 2,
-        velocity: 0
-    };
-
-    pipes = [];
     score = 0;
-    gameRunning = true;
-    spawnPipe();
-    gameLoop();
+    birdY = 200;
+    gameActive = true;
 }
 
 function gameLoop() {
@@ -101,10 +91,11 @@ function jump() {
     bird.velocity = -8;
 }
 
+// Game over logic and scoring
 function gameOver() {
-    gameRunning = false;
-    document.getElementById('gameOverScreen').style.display = 'block';
-    document.getElementById('finalScore').innerText = score;
+    gameActive = false;
+    alert(`Game Over! Your Score: ${score}`);
+    score = 0;
 }
 
 function restartGame() {
