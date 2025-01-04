@@ -1,36 +1,29 @@
 body {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    font-family: 'Press Start 2P', cursive;
     text-align: center;
-    background-color: black;
+    font-family: Arial, sans-serif;
+    background-color: #000;
     color: white;
 }
 
 button {
-    background-color: yellow;
-    border: 2px solid black;
     padding: 10px 20px;
-    cursor: pointer;
     font-size: 18px;
+    margin: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: yellow;
 }
 
-canvas {
+#gameCanvas {
     border: 2px solid yellow;
     display: block;
     margin: auto;
 }
 
-h1 {
-    color: white;
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-
-* {
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    user-select: none;
-    touch-action: manipulation; /* Prevent double-tap zoom */
+#menu, #game-over-screen {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
