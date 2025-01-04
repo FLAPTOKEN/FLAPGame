@@ -7,16 +7,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Main Menu -->
+    <div id="mainMenu" class="menu">
+        <h1>FLAP Token Game</h1>
+        <button id="startButton">Start Game</button>
+        <button id="connectWalletButton">Connect Wallet</button>
+    </div>
+
     <!-- Game Canvas -->
-    <h1>FLAP Token Game</h1>
-    <canvas id="gameCanvas"></canvas>
-    <p>Score: <span id="scoreDisplay">0</span></p>
+    <div id="gameScreen" class="hidden">
+        <canvas id="gameCanvas"></canvas>
+        <p>Score: <span id="scoreDisplay">0</span></p>
+        <button id="rewardButton" class="hidden">Claim Your FLAP Rewards</button>
+        <button id="restartButton" class="hidden">Restart Game</button>
+    </div>
 
-    <!-- Wallet & Rewards Section -->
-    <button id="connectWalletButton">Connect Wallet</button>
-    <button id="rewardButton" style="display:none;">Claim Your FLAP Rewards</button>
-
-    <!-- JavaScript files -->
     <script src="wallet.js" type="module"></script>
     <script src="game.js"></script>
 </body>
