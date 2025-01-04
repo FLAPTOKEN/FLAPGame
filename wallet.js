@@ -1,19 +1,27 @@
 let walletAddress = null;
 
 // Connect to Phantom Wallet
+let walletAddress = null;
+
 async function connectWallet() {
     if (window.solana && window.solana.isPhantom) {
-        try {
-            const response = await window.solana.connect();
-            alert(`Wallet Connected: ${response.publicKey.toString()}`);
-            userWallet = response.publicKey.toString();
-        } catch (err) {
-            alert('Wallet connection failed!');
-        }
+        const response = await window.solana.connect();
+        walletAddress = response.publicKey.toString();
+        alert(`Wallet Connected: ${walletAddress}`);
     } else {
-        alert('Please install Phantom Wallet!');
+        alert("Please install Phantom Wallet!");
     }
 }
+
+// Ensure wallet is connected before playing
+function checkWalletBeforeStart() {
+    if (!walletAddress) {
+        alert("Please connect your wallet first!");
+        return;
+    }
+    startGame();
+}
+
 
 // Check Wallet Connection Before Claiming Rewards
 async function claimRewards() {
