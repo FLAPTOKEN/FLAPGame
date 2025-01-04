@@ -4,7 +4,6 @@ import {
     Transaction,
     SystemProgram,
     sendAndConfirmTransaction,
-    Keypair,
 } from '@solana/web3.js';
 
 const connection = new Connection("https://api.devnet.solana.com");
@@ -32,17 +31,18 @@ async function rewardPlayer() {
         SystemProgram.transfer({
             fromPubkey: new PublicKey(wallet),
             toPubkey: recipient,
-            lamports: rewardAmount * 1000, // 1000 FLAP tokens as a reward
+            lamports: rewardAmount * 1000, 
         })
     );
 
     try {
         await sendAndConfirmTransaction(connection, transaction, []);
-        alert("Successfully rewarded!");
+        alert("Successfully rewarded with FLAP tokens!");
     } catch (error) {
         console.error("Error:", error);
         alert("Transaction failed!");
     }
 }
 
+document.getElementById("connectWalletButton").addEventListener("click", connectWallet);
 document.getElementById("rewardButton").addEventListener("click", rewardPlayer);
