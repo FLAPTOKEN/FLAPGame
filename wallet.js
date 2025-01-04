@@ -1,56 +1,48 @@
-let rewardGiven = false;
-const BASE_REWARD = 10; // 10 Flap Tokens per point
-const MINIMUM_PLAYTIME = 60 * 1000; // 60 seconds (1 minute)
-let gameStartTime = Date.now();
+import {
+    Connection,
+    PublicKey,
+    Transaction,
+    SystemProgram,
+    sendAndConfirmTransaction,
+    Keypair,
+} from '@solana/web3.js';
 
-// Function to calculate rewards
-function calculateRewards(score) {
-    const playDuration = Date.now() - gameStartTime;
-    let rewardAmount = score * BASE_REWARD;
+const connection = new Connection("https://api.devnet.solana.com");
+const programId = new PublicKey("DtZ7zA73JN27XwNiqWwFoZ4NBD8f8RhB6eLNs14LUAhZ");
+const rewardAmount = 1000;
 
-    if (playDuration < MINIMUM_PLAYTIME) {
-        rewardAmount *= 0.5; // Reduce reward if played less than 1 minute
-        alert("Playtime was too short! Reduced reward by 50%.");
-    }
-
-    return Math.floor(rewardAmount);
-}
-
-// Check and reward user
-function checkScoreReward() {
-    if (score >= 10 && !rewardGiven) {
-        rewardGiven = true;
-        const reward = calculateRewards(score);
-        alert(`Congratulations! You've earned ${reward} Flap Tokens!`);
-        sendFlapTokenReward(reward);
-    }
-}
-
-// Token Transfer using Web3
-async function sendFlapTokenReward(amount) {
-    if (window.ethereum) {
-        try {
-            const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-            const recipient = accounts[0]; // Player's wallet
-            const tokenAddress = "YOUR_FLAP_TOKEN_CONTRACT_ADDRESS";
-
-            const tx = {
-                to: tokenAddress,
-                from: recipient,
-                value: "0",
-                data: "0x" // Replace with the correct contract ABI interaction data
-            };
-
-            await window.ethereum.request({
-                method: 'eth_sendTransaction',
-                params: [tx]
-            });
-
-            alert(`${amount} Flap Tokens have been sent to your wallet!`);
-        } catch (error) {
-            alert("Error sending Flap Tokens: " + error.message);
-        }
+async function connectWallet() {
+    if (window.solana && window.solana.isPhantom) {
+        await window.solana.connect();
+        const wallet = window.solana.publicKey.toString();
+        alert(`Connected wallet: ${wallet}`);
+        return wallet;
     } else {
-        alert("Please connect your wallet.");
+        alert("Please install Phantom Wallet!");
+        return null;
     }
 }
+
+async function rewardPlayer() {
+    const wallet = await connectWallet();
+    if (!wallet) return;
+
+    const recipient = new PublicKey(wallet);
+    const transaction = new Transaction().add(
+        SystemProgram.transfer({
+            fromPubkey: new PublicKey(wallet),
+            toPubkey: recipient,
+            lamports: rewardAmount * 1000, // 1000 FLAP tokens as a reward
+        })
+    );
+
+    try {
+        await sendAndConfirmTransaction(connection, transaction, []);
+        alert("Successfully rewarded!");
+    } catch (error) {
+        console.error("Error:", error);
+        alert("Transaction failed!");
+    }
+}
+
+document.getElementById("rewardButton").addEventListener("click", rewardPlayer);
