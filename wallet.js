@@ -4,14 +4,14 @@ let walletAddress = null;
 async function connectWallet() {
     if (window.solana && window.solana.isPhantom) {
         try {
-            const response = await window.solana.connect({ onlyIfTrusted: true });
-            walletAddress = response.publicKey.toString();
-            alert("✅ Wallet Connected: " + walletAddress);
-        } catch (error) {
-            alert("❌ Wallet connection failed. Please try again!");
+            const response = await window.solana.connect();
+            alert(`Wallet Connected: ${response.publicKey.toString()}`);
+            userWallet = response.publicKey.toString();
+        } catch (err) {
+            alert('Wallet connection failed!');
         }
     } else {
-        alert("🛠️ Please install the Phantom Wallet extension first!");
+        alert('Please install Phantom Wallet!');
     }
 }
 
