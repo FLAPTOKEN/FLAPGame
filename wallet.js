@@ -1,40 +1,29 @@
-import {
-    Connection,
-    PublicKey,
-    Transaction,
-    SystemProgram,
-    sendAndConfirmTransaction,
-} from '@solana/web3.js';
+let walletAddress = null;
 
-const connection = new Connection("https://api.devnet.solana.com");
-const rewardAmount = 1000;
-
+// Connect Phantom Wallet
 async function connectWallet() {
     if (window.solana && window.solana.isPhantom) {
-        await window.solana.connect();
-        alert(`Wallet connected: ${window.solana.publicKey}`);
+        try {
+            const response = await window.solana.connect();
+            walletAddress = response.publicKey.toString();
+            alert("Wallet connected: " + walletAddress);
+        } catch (error) {
+            alert("Wallet connection failed!");
+        }
     } else {
-        alert("Phantom wallet not detected!");
+        alert("Please install Phantom Wallet!");
     }
 }
 
-async function rewardPlayer() {
-    const wallet = window.solana.publicKey.toString();
-    const recipient = new PublicKey(wallet);
-    const transaction = new Transaction().add(
-        SystemProgram.transfer({
-            fromPubkey: new PublicKey(wallet),
-            toPubkey: recipient,
-            lamports: rewardAmount * 1000, 
-        })
-    );
-    try {
-        await sendAndConfirmTransaction(connection, transaction, []);
-        alert("Successfully rewarded FLAP tokens!");
-    } catch (error) {
-        console.error("Transaction failed!", error);
+// Claim Rewards (Mock Function)
+async function claimRewards() {
+    if (!walletAddress) {
+        alert("Connect your wallet first!");
+        return;
     }
+    const rewardAmount = score * 100; // Example calculation
+    alert(`Claiming ${rewardAmount} FLAP Tokens!`);
+    
+    // Call smart contract here (Solana integration)
+    console.log(`Transfer ${rewardAmount} FLAP to ${walletAddress}`);
 }
-
-document.getElementById("connectWalletButton").addEventListener("click", connectWallet);
-document.getElementById("rewardButton").addEventListener("click", rewardPlayer);
