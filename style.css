@@ -1,10 +1,19 @@
 body {
-    text-align: center;
-    font-family: 'Press Start 2P', sans-serif;
-    background: black;
-    color: white;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+    font-family: 'Press Start 2P', cursive;
+    text-align: center;
+    background-color: black;
+    color: white;
+}
+
+button {
+    background-color: yellow;
+    border: 2px solid black;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 18px;
 }
 
 canvas {
@@ -13,22 +22,15 @@ canvas {
     margin: auto;
 }
 
-button {
-    padding: 10px;
-    background-color: yellow;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button.hidden {
-    display: none;
-}
-
-.hidden {
-    display: none;
-}
-
 h1 {
-    font-size: 28px;
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+* {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    touch-action: manipulation; /* Prevent double-tap zoom */
 }
